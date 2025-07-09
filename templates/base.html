@@ -54,6 +54,30 @@
           font-size: 22px;
           font-weight: 500;
         }
+                .nav-links {
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+          margin-right: 20px;
+        }
+        .nav-links a {
+          display: flex;
+          align-items: center;
+          margin: 0 10px;
+          padding: 8px 12px;
+          border-radius: 8px;
+          text-decoration: none;
+          color: #333;
+          transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+          background: rgba(64, 112, 244, 0.1);
+          color: #4070f4;
+        }
+        .nav-links a i {
+          margin-right: 8px;
+          font-size: 18px;
+        }
         nav .sidebar {
           position: fixed;
           top: 0;
@@ -210,6 +234,11 @@
         width: 0%;
         transition: width 0.1s linear;
     }
+      @media (max-width: 1060px) {
+      .nav-links {
+        display: none;
+      }
+    }
     </style>
   </head>
   <body>
@@ -218,6 +247,34 @@
         <i class="bx bx-menu menu-icon"></i>
         <span class="logo-name">NaukaPRO</span>
       </div>
+
+      <div class="nav-links">
+        <a href="/">
+          <i class="bx bx-home-alt"></i>
+          <span>Главная</span>
+        </a>
+        <a href="/physicspro">
+          <i class="fas fa-atom"></i>
+          <span>PhysicsPRO</span>
+        </a>
+        <a href="/chemistrypro">
+          <i class="fas fa-flask"></i>
+          <span>ChemistryPRO</span>
+        </a>
+        <a href="/informpro">
+          <i class="fas fa-laptop-code"></i>
+          <span>InformPRO</span>
+        </a>
+        <a href="/aboutme">
+          <i class="bx bxs-hand"></i>
+          <span>Обо мне</span>
+        </a>
+        <a href="/contacts">
+          <i class="bx bxs-contact"></i>
+          <span>Контакты</span>
+        </a>
+      </div>
+
       <div class="sidebar">
         <div class="logo">
           <i class="bx bx-menu menu-icon"></i>
