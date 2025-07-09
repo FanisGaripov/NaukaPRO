@@ -1,0 +1,5 @@
+﻿flask
+gunicorn
+python-dotenv
+APScheduler
+requests
