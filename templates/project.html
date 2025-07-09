@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>NaukaPRO - {{ project_name }}</title>
+{% endblock %}
+
+{% block description %}
+<meta name="description" content="{{ short_description }}">
+{% endblock %}
+
+{% block content %}
+<main style="margin-top: 70px; padding: 20px;">
+    <section style="background: linear-gradient(135deg, {{ gradient_color_1 }} 0%, {{ gradient_color_2 }} 100%); 
+                    color: white; 
+                    padding: 4rem 2rem; 
+                    border-radius: 12px; 
+                    margin-bottom: 2rem;
+                    position: relative;
+                    overflow: hidden;">
+        <div style="position: absolute; 
+                    top: -50px; 
+                    right: -50px; 
+                    width: 200px; 
+                    height: 200px; 
+                    background: rgba(255,255,255,0.1); 
+                    border-radius: 50%;"></div>
+        <div style="position: relative; z-index: 1; text-align: center;">
+            <div style="background: white; 
+                        width: 80px; 
+                        height: 80px; 
+                        border-radius: 20px; 
+                        display: inline-flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        margin-bottom: 20px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <img style="width: 70px; height: 70px;" src="{{ project_icon }}">
+            </div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">{{ project_name }}</h1>
+            <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+                {{ short_description }}
+            </p>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <div style="display: grid; grid-template-columns: 1fr 300px; gap: 30px; margin-bottom: 3rem;">
+        <!-- Левая колонка -->
+        <div>
+            <!-- О проекте -->
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 30px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-info-circle" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>О проекте</span>
+                </h2>
+                <div style="line-height: 1.7; color: #555;">
+                    {{ project_description | safe }}
+                </div>
+            </section>
+
+            <!-- Галерея -->
+            <section style="background: white;
+                border-radius: 12px;
+                padding: 30px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                margin-bottom: 20px;">
+            <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-images" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                <span>Галерея проекта</span>
+            </h2>
+
+            <!-- Основной скриншот -->
+            <div style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <img id="main-screenshot" src="{{ main_screenshot }}" alt="Главный скриншот {{ project_name }}"
+                     style="width: 100%; display: block; cursor: zoom-in;"
+                     onclick="openLightbox(this.src)">
+            </div>
+
+            <!-- Миниатюры -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px;">
+                {% for screenshot in screenshots %}
+                <div style="border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; height: 100px;">
+                    <img src="{{ screenshot }}" alt="Скриншот {{ project_name }}"
+                         style="width: 100%; height: 100%; object-fit: cover;"
+                         onclick="document.getElementById('main-screenshot').src = this.src; openLightbox(this.src)">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+            <!-- Видеообзор -->
+            {% if video_review %}
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 30px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-video" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>Видеообзор</span>
+                </h2>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+                    <iframe src="{{ video_review }}" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                            allowfullscreen></iframe>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Особенности -->
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 30px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-star" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>Ключевые особенности</span>
+                </h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))); gap: 15px;">
+                    {% for feature in features %}
+                    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <div style="width: 40px; height: 40px; background: {{ gradient_color_1 }}; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="{{ feature.icon }}" style="color: white; font-size: 16px;"></i>
+                            </div>
+                            <h3 style="margin: 0;">{{ feature.title }}</h3>
+                        </div>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">{{ feature.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <!-- Правая колонка -->
+        <div>
+            <!-- Статистика -->
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 25px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-chart-line" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>Статистика</span>
+                </h2>
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="color: #666;">Просмотров:</span>
+                        <span style="font-weight: 500;">{{ stats_views }}+</span>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="color: #666;">Пользователей:</span>
+                        <span style="font-weight: 500;">{{ stats_users }}+</span>
+                    </div>
+                </div>
+<!--                <div style="margin-bottom: 20px;">-->
+<!--                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">-->
+<!--                        <span style="color: #666;">Материалов:</span>-->
+<!--                        <span style="font-weight: 500;">{{ stats_materials }}+</span>-->
+<!--                    </div>-->
+<!--                    <div style="height: 8px; background: #f1f1f1; border-radius: 4px; overflow: hidden;">-->
+<!--                        <div style="height: 100%; background: {{ gradient_color_1 }};"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="color: #666;">CTR(Процент кликабельности):</span>
+                        <span style="font-weight: 500;">{{ stats_users_percentage|round(2) }}%</span>
+                    </div>
+                    <div style="height: 8px; background: #f1f1f1; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; background: {{ gradient_color_1 }}; width: {{ stats_users_percentage }}%;"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="color: #666;">Охват:</span>
+                        <span style="font-weight: 500;">{{ stats_countries }}+ стран</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Технологии -->
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 25px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-code" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>Технологии</span>
+                </h2>
+                <div style="display: flex; flex-direction: column; flex-wrap: wrap; gap: 10px;">
+                    {% for tech in technologies %}
+                    <span style="background: #f1f1f1; color: #333; padding: 6px 12px; border-radius: 20px; font-size: 0.9rem;">
+                        {{ tech|safe }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Отзывы -->
+            <section style="background: white; 
+                            border-radius: 12px; 
+                            padding: 25px; 
+                            box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
+                    <i class="fas fa-quote-left" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
+                    <span>Отзывы</span>
+                </h2>
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <img src="https://via.placeholder.com/40" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                        <div>
+                            <div style="font-weight: 500;">Мария С.</div>
+                            <div style="font-size: 0.8rem; color: #666;">Преподаватель физики</div>
+                        </div>
+                    </div>
+                    <p style="color: #555; font-style: italic; margin: 0;">
+                        "Лучший ресурс для подготовки к олимпиадам. Особенно ценю интерактивные симуляторы!"
+                    </p>
+                </div>
+                <div style="text-align: center;">
+                    <a href="#" style="color: {{ gradient_color_1 }}; text-decoration: none; font-weight: 500;">
+                        Все отзывы →
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <section style="background: linear-gradient(135deg, {{ gradient_color_1 }} 0%, {{ gradient_color_2 }} 100%); 
+                    color: white; 
+                    padding: 3rem 2rem; 
+                    border-radius: 12px; 
+                    text-align: center;
+                    margin-bottom: 2rem;">
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Хотите попробовать?</h2>
+        <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 2rem;">
+            {{ cta_text }}
+        </p>
+        <a href="{{ project_url }}" style="display: inline-block; 
+                                background: white; 
+                                color: {{ gradient_color_1 }}; 
+                                padding: 12px 30px; 
+                                border-radius: 30px; 
+                                text-decoration: none;
+                                font-weight: 600;
+                                transition: all 0.3s ease;">
+            Перейти на {{ project_name }}
+        </a>
+    </section>
+</main>
+
+<script>
+    document.querySelectorAll('div[style*="box-shadow: 0 4px 12px rgba(0,0,0,0.1)"]').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'none';
+        });
+    });
+
+    const ctaButton = document.querySelector('a[href="{{ project_url }}"]');
+    if (ctaButton) {
+        ctaButton.addEventListener('mouseenter', () => {
+            ctaButton.style.transform = 'scale(1.05)';
+            ctaButton.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        });
+        ctaButton.addEventListener('mouseleave', () => {
+            ctaButton.style.transform = 'none';
+            ctaButton.style.boxShadow = 'none';
+        });
+    }
+</script>
+{% endblock %}
