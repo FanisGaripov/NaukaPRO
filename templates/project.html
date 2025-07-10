@@ -9,6 +9,21 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    @media (min-width: 700px) {
+      .right {
+        grid-template-columns: 1fr 300px;
+      }
+      h1 {
+        font-size: 2.5rem
+      }
+    }
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 2rem
+      }
+    }
+</style>
 <main style="margin-top: 70px; padding: 20px;">
     <section style="background: linear-gradient(135deg, {{ gradient_color_1 }} 0%, {{ gradient_color_2 }} 100%); 
                     color: white; 
@@ -36,7 +51,7 @@
                         box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                 <img style="width: 70px; height: 70px;" src="{{ project_icon }}">
             </div>
-            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">{{ project_name }}</h1>
+            <h1 style="margin-bottom: 1rem;">{{ project_name }}</h1>
             <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
                 {{ short_description }}
             </p>
@@ -44,7 +59,7 @@
     </section>
 
     <!-- Основной контент -->
-    <div style="display: grid; grid-template-columns: 1fr 300px; gap: 30px; margin-bottom: 3rem;">
+    <div class="right" style="display: grid; gap: 30px; margin-bottom: 3rem;">
         <!-- Левая колонка -->
         <div>
             <!-- О проекте -->
@@ -140,7 +155,7 @@
         <!-- Правая колонка -->
         <div>
             <!-- Статистика -->
-            <section style="background: white; 
+            <section style="background: white;
                             border-radius: 12px; 
                             padding: 25px; 
                             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
