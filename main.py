@@ -1,4 +1,3 @@
-from bottle import redirect
 from flask import Flask, render_template, session, redirect
 import requests
 from datetime import datetime
