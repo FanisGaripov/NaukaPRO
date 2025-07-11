@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base_tat.html" %}
 
 {% block title %}
-<title>NaukaPRO - {{ project_name }}</title>
+<title>ФәнPRO - {{ project_name }}</title>
 {% endblock %}
 
 {% block description %}
@@ -70,7 +70,7 @@
                             margin-bottom: 20px;">
                 <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
                     <i class="fas fa-info-circle" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
-                    <span>О проекте</span>
+                    <span>Проект турында</span>
                 </h2>
                 <div style="line-height: 1.7; color: #555;">
                     {{ project_description | safe }}
@@ -85,7 +85,7 @@
                 margin-bottom: 20px;">
             <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
                 <i class="fas fa-images" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
-                <span>Галерея проекта</span>
+                <span>Проектның фотосүрәтләре</span>
             </h2>
 
             <!-- Основной скриншот -->
@@ -134,7 +134,7 @@
                             margin-bottom: 20px;">
                 <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
                     <i class="fas fa-star" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
-                    <span>Ключевые особенности</span>
+                    <span>Төп үзенчәлекләре</span>
                 </h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))); gap: 15px;">
                     {% for feature in features %}
@@ -166,13 +166,13 @@
                 </h2>
                 <div style="margin-bottom: 20px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #666;">Просмотров:</span>
+                        <span style="color: #666;">Караулар:</span>
                         <span style="font-weight: 500;">{{ stats_views }}+</span>
                     </div>
                 </div>
                 <div style="margin-bottom: 20px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #666;">Пользователей:</span>
+                        <span style="color: #666;">Керүчеләр:</span>
                         <span style="font-weight: 500;">{{ stats_users }}+</span>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
 <!--                </div>-->
                 <div style="margin-bottom: 20px;">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #666;">CTR(Процент кликабельности):</span>
+                        <span style="color: #666;">CTR(Сайтка керү проценты):</span>
                         <span style="font-weight: 500;">{{ stats_users_percentage|round(2) }}%</span>
                     </div>
                     <div style="height: 8px; background: #f1f1f1; border-radius: 4px; overflow: hidden;">
@@ -196,8 +196,8 @@
                 </div>
                 <div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <span style="color: #666;">Охват:</span>
-                        <span style="font-weight: 500;">{{ stats_countries }}+ стран</span>
+                        <span style="color: #666;">Илләр саны:</span>
+                        <span style="font-weight: 500;">{{ stats_countries }}+</span>
                     </div>
                 </div>
             </section>
@@ -210,7 +210,7 @@
                             margin-bottom: 20px;">
                 <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
                     <i class="fas fa-code" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
-                    <span>Технологии</span>
+                    <span>Технологияләр</span>
                 </h2>
                 <div style="display: flex; flex-direction: column; flex-wrap: wrap; gap: 10px;">
                     {% for tech in technologies %}
@@ -228,7 +228,7 @@
                             box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 <h2 style="margin-bottom: 20px; color: #333; display: flex; align-items: center;">
                     <i class="fas fa-quote-left" style="margin-right: 10px; color: {{ gradient_color_1 }};"></i>
-                    <span>Отзывы</span>
+                    <span>Бәяләмәләр</span>
                 </h2>
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
                     <div style="display: flex; align-items: center; margin-bottom: 10px;">
@@ -257,7 +257,7 @@
                     border-radius: 12px; 
                     text-align: center;
                     margin-bottom: 2rem;">
-        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Хотите попробовать?</h2>
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Сынап карарга телисезме?</h2>
         <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 2rem;">
             {{ cta_text }}
         </p>
@@ -269,7 +269,7 @@
                                 text-decoration: none;
                                 font-weight: 600;
                                 transition: all 0.3s ease;">
-            Перейти на {{ project_name }}
+            {{ project_name }}га күчәргә
         </a>
     </section>
 </main>
