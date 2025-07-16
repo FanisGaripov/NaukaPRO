@@ -449,8 +449,10 @@ def informpro():
     data_shows = response_shows.json()
     data_clicks = response_clicks.json()
     print(data_shows)
-    total_shows = int(sum(item['value'] for item in data_shows['indicators']['TOTAL_SHOWS']))
-    total_clicks = int(sum(item['value'] for item in data_clicks['indicators']['TOTAL_CLICKS']))
+    # total_shows = int(sum(item['value'] for item in data_shows['indicators']['TOTAL_SHOWS']))
+    # total_clicks = int(sum(item['value'] for item in data_clicks['indicators']['TOTAL_CLICKS']))
+    total_shows = 1
+    total_clicks = 1
     project_name = 'InformPRO'
     gradient_color_1 = '#8a2be2'
     gradient_color_2 = '#4b6cb7'
