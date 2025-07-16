@@ -589,6 +589,12 @@ def contacts():
         return render_template('contacts_tat.html')
 
 
+@app.route('/yandex_aafb15c8321e8810.html')
+def ya():
+    # подтверждение яндекс
+    return render_template('yandex_aafb15c8321e8810.html')
+
+
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', port=5000, debug=True)
