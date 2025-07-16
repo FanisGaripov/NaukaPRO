@@ -109,6 +109,9 @@ def aboutme():
 
 @app.route('/chemistrypro')
 def chemistrypro():
+    if 'language' not in session:
+        session['language'] = 'Ru'
+        session.modified = True
     if 'page' not in session:
         session['page'] = '/'
         session.modified = True
@@ -264,6 +267,9 @@ def chemistrypro():
 
 @app.route('/physicspro')
 def physicspro():
+    if 'language' not in session:
+        session['language'] = 'Ru'
+        session.modified = True
     if 'page' not in session:
         session['page'] = '/'
         session.modified = True
@@ -418,18 +424,153 @@ def physicspro():
 
 @app.route('/informpro')
 def informpro():
+    if 'language' not in session:
+        session['language'] = 'Ru'
+        session.modified = True
     if 'page' not in session:
         session['page'] = '/'
         session.modified = True
     session['page'] = '/informpro'
     session.modified = True
-    if 'language' not in session:
-        session['language'] = 'Ru'
-        session.modified = True
+    global date_to
+    host_id = 'https:informpro.onrender.com:443'
+    response_shows = requests.get(
+        f'https://api.webmaster.yandex.net/v4/user/{user_id}/hosts/{host_id}/search-queries/all/history/',
+        headers=headers,
+        params=params_for_shows
+    )
+
+    response_clicks = requests.get(
+        f'https://api.webmaster.yandex.net/v4/user/{user_id}/hosts/{host_id}/search-queries/all/history/',
+        headers=headers,
+        params=params_for_clicks
+    )
+
+    data_shows = response_shows.json()
+    data_clicks = response_clicks.json()
+    print(data_shows)
+    # total_shows = int(sum(item['value'] for item in data_shows['indicators']['TOTAL_SHOWS']))
+    # total_clicks = int(sum(item['value'] for item in data_clicks['indicators']['TOTAL_CLICKS']))
+    total_shows = 1000
+    total_clicks = 500
+    project_name = 'InformPRO'
+    gradient_color_1 = '#8a2be2'
+    gradient_color_2 = '#4b6cb7'
+    main_screenshot = '/static/informpro_main.png'
+    stats_countries = 1
+    stats_users_percentage = total_clicks / total_shows * 100
+    project_icon = '/static/favicon_inform.png'
+    project_url = 'https://informpro.onrender.com'
+    screenshots = ['/static/informpro_main.png', '/static/informpro_1.png', '/static/informpro_2.png', '/static/informpro_3.png']
     if session['language'] == 'Ru':
-        return render_template('informpro.html')
+        project_description = '''InformPRO — это веб-приложение, разработанное для изучения Информатики 7-11 класса, а также программирования на базовом уровне. 
+        InformPRO предлагает структурированные материалы для освоения программирования и математического мышления. Это помогает при подготовке к Основному и Единому Государственным экзаменам.<br> На сайте собраны:<br>
+
+        • Материалы по программированию, базам данных и криптобезопасности<br>
+        • Онлайн-компилятор для того, чтобы заниматься программированием, не выходя из браузера<br>
+        • Искусственный интеллект - ИИ поможет и объяснит непонятную тему, а также способен решать и генерировать разные задачи<br>
+        • Генератор задач по программированию<br>
+        • Также для саморазвития на сайте представлен список идей для пет-проектов<br>
+        
+        Платформа адаптирована для использования на компьютерах и мобильных устройствах. Все материалы доступны бесплатно.<br>
+        InformPRO продолжает развиваться — постепенно добавляются новые материалы и улучшается функционал.<br>
+        Сайт опубликован на хостинге render.com: <a href='https://informpro.onrender.com/'>https://informpro.onrender.com/</a>.'''
+        
+
+        short_description = 'InformPRO — сайт по информатике и программированию. Здесь Вы сможете воспользоваться разными функциями: начиная от изучения языка программирования Python, заканчивая решением экзаменационных заданий ОГЭ и ЕГЭ. Также на сайте присутствует онлайн-компилятор, и дополнительные теоретические материалы.'
+        technologies = ['<strong>1) Python:</strong>', 'Flask, g4f', '<strong>2) JavaScript:</strong>',
+                        'Boostrap, MathJax', 'Boxicons', 'FontAwesome',
+                        '<strong>3) Html</strong>', '<strong>4) Метрики:</strong>',
+                        'Webmaster, Yandex Metrika']
+        feat = [
+            {
+                "icon": "fas fa-laptop-code",
+                "title": "Программирование",
+                "description": "Уроки по Python, SQL, ИИ с практическими примерами"
+            },
+            {
+                "icon": "fas fa-code",
+                "title": "Онлайн-компилятор",
+                "description": "Позволяет заниматься программирование прямо на сайте. Доступно 70 языков программирования"
+            },
+            {
+                "icon": "fas fa-robot",
+                "title": "AI-помощник",
+                "description": "Искусственный интеллект, с которым можно обсудить программирование и информатику"
+            },
+            {
+                "icon": "fas fa-check-double",
+                "title": "Практика",
+                "description": "Задания ОГЭ/ЕГЭ для закрепления знаний"
+            },
+            {
+                "icon": "fas fa-project-diagram",
+                "title": "Генерация задач",
+                "description": "ИИ генерирует код разного уровня сложности: от простого до олимпиадного уровня"
+            }
+        ]
+        return render_template('project.html', project_name=project_name, short_description=short_description,
+                               gradient_color_1=gradient_color_1, gradient_color_2=gradient_color_2,
+                               main_screenshot=main_screenshot,
+                               video_review=None, stats_views=total_shows, stats_users=total_clicks,
+                               stats_users_percentage=stats_users_percentage,
+                               project_url=project_url, technologies=technologies, stats_countries=stats_countries,
+                               project_icon=project_icon,
+                               screenshots=screenshots, project_description=project_description, features=feat)
     else:
-        return render_template('informpro_tat.html')
+        project_description = '''InformPRO - 7-11 сыйныф Информатика материалын өйрәнү өчен эшләнгән веб-кушымта, шулай ук программалаштыруны да өйрәтә, математик фикерләүгә тәэсир итә. Бу Төп һәм Бердәм Дәүләт имтиханнарына әзерләнгәндә ярдәм итә. <br> Сайтта:<br>
+
+
+                    • Программалаштыру, мәгълүматлар базасы һәм криптокуркынычсызлык буенча материаллар<br>
+                    • Браузердан чыкмыйча гына программалаштыру өчен онлайн-компилятор<br>
+                    • Шулай ук үз-үзеңне үстерү өчен сайтта пет-проектлар тәкъдимнәре исемлеге бар<br>
+                    • Ясалма интеллект - аңлаешсыз теманы аңлата, шулай ук төрле мәсьәләләрне чишәргә һәм генерацияләргә сәләтле<br>
+
+
+                    Сайт компьютерларда да, мобиль җайланмаларда да эшли. Барлык материаллар бушлай.<br>
+
+                    InformPRO үсүен дәвам итә - акрынлап яңа материаллар өстәлә һәм функционал яхшыра.
+                    Сайт render.com хостингында урнаштырылды: <a href='https://informpro.onrender.com/'>https://informpro.onrender.com/</a>'''
+        short_description = 'InformPRO - программалаштыру һәм информатика сайты. Биредә сез төрле функцияләрдән файдалана аласыз: Python телен өйрәнүдән башлап, ТДИ һәм БДИ биремнәре чишү белән тәмамлап. Шулай ук сайтта онлайн-компилятор һәм өстәмә функцияләр дә бар.'
+        technologies = ['<strong>1) Python:</strong>', 'Flask, g4f', '<strong>2) JavaScript:</strong>',
+                        'Boostrap, MathJax', 'Boxicons', 'FontAwesome',
+                        '<strong>3) Html</strong>', '<strong>4) Метрикалар:</strong>',
+                        'Webmaster, Yandex Metrika']
+        feat = [
+            {
+                "icon": "fas fa-laptop-code",
+                "title": "Программалаштыру",
+                "description": "Python, SQL, Ясалма интеллект дәресләре"
+            },
+            {
+                "icon": "fas fa-code",
+                "title": "Онлайн-компилятор",
+                "description": "Браузердан чыкмыйча гына программалаштыру. 70 программалаштыру теле бар"
+            },
+            {
+                "icon": "fas fa-robot",
+                "title": "AI-булышчы",
+                "description": "Ясалма интеллект - программалаштыру һәм информатика биремнәрен чишә белә"
+            },
+            {
+                "icon": "fas fa-check-double",
+                "title": "Кабатлау",
+                "description": "ТДИ/БДИ биремнәрен кабатлау"
+            },
+            {
+                "icon": "fas fa-project-diagram",
+                "title": "Биремнәр генерациясе",
+                "description": "Ясалма интеллект катлаулы биремнәр генерацияли"
+            }
+        ]
+        return render_template('project_tat.html', project_name=project_name, short_description=short_description,
+                               gradient_color_1=gradient_color_1, gradient_color_2=gradient_color_2,
+                               main_screenshot=main_screenshot,
+                               video_review=None, stats_views=total_shows, stats_users=total_clicks,
+                               stats_users_percentage=stats_users_percentage,
+                               project_url=project_url, technologies=technologies, stats_countries=stats_countries,
+                               project_icon=project_icon,
+                               screenshots=screenshots, project_description=project_description, features=feat)
 
 
 @app.route('/contacts')
