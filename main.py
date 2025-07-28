@@ -449,15 +449,15 @@ def informpro():
     data_shows = response_shows.json()
     data_clicks = response_clicks.json()
     print(data_shows)
-    # total_shows = int(sum(item['value'] for item in data_shows['indicators']['TOTAL_SHOWS']))
-    # total_clicks = int(sum(item['value'] for item in data_clicks['indicators']['TOTAL_CLICKS']))
-    total_shows = 1
-    total_clicks = 1
+    total_shows = int(sum(item['value'] for item in data_shows['indicators']['TOTAL_SHOWS']))
+    total_clicks = int(sum(item['value'] for item in data_clicks['indicators']['TOTAL_CLICKS']))
+    # total_shows = 1
+    # total_clicks = 1
     project_name = 'InformPRO'
     gradient_color_1 = '#8a2be2'
     gradient_color_2 = '#4b6cb7'
     main_screenshot = '/static/informpro_main.png'
-    stats_countries = 1
+    stats_countries = 3
     stats_users_percentage = total_clicks / total_shows * 100
     project_icon = '/static/favicon_inform.png'
     project_url = 'https://informpro.onrender.com'
