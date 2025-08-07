@@ -589,6 +589,16 @@ def contacts():
         return render_template('contacts_tat.html')
 
 
+@app.route('/sitemap.xml')
+def sitemap():
+    return app.send_static_file('sitemap_naukapro.xml')
+
+
+@app.route('/googled5c4e477b332cb57.html')
+def google():
+    return render_template('googled5c4e477b332cb57.html')
+
+
 @app.route('/yandex_aafb15c8321e8810.html')
 def ya():
     # подтверждение яндекс
@@ -600,3 +610,4 @@ if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5000, debug=True)
     finally:
         scheduler.shutdown()
+
